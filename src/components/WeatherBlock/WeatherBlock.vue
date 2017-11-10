@@ -8,7 +8,7 @@
         <div>
           <img
             :src='"../../assets/" + illustration + ".png"'
-            alt='sunny'>
+            :alt='illustration'>
           <p><strong>{{ weatherInfo.weather[0].main }}</strong></p>
         </div>
       </div>
