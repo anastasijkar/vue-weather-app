@@ -4,7 +4,7 @@
     font-family: 'Patrick Hand', cursive;
     display: inline-block;
     width: 100%;
-    max-width: 450px;
+    max-width: 280px;
     margin: 15px;
     padding: 15px;
     border-radius: 15px;
@@ -12,10 +12,16 @@
     box-shadow: 5px 5px 8px 0px rgba(0,0,0,.2);
     background-color: #edf3f9;
     color: #344879;
+    @media all and (min-width: 520px) {
+      max-width: 450px;
+    }
     .wrapper {
       display: flex;
-      flex-direction: row;
+      flex-direction: column;
       justify-content: space-around;
+      @media all and (min-width: 520px) {
+        flex-direction: row;
+      }
       .block-wrapper {
         display: flex;
         flex-direction: column;
@@ -44,7 +50,19 @@
             margin-top: 3px;
           }
         }
-        .sun-clock {
+        .inner-wrapper {
+          display: flex;
+          flex-direction: column;
+          justify-content: space-between;
+          @media all and (min-width: 520px) {
+            flex-direction: row;
+          }
+        }
+        .sun-clock, .clouds-wind {
+          margin-bottom: 10px;
+          @media all and (min-width: 520px) {
+            margin-bottom: 0;
+          }
           svg {
             margin-left: -20px;
           }

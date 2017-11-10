@@ -7,17 +7,9 @@
         </p>
         <div>
           <img
-            v-if='weatherInfo.clouds.all < 33'
-            src='../../assets/sunny.png'
-            alt="Sunny">
-          <img
-            v-else-if='weatherInfo.clouds.all > 66'
-            src='../../assets/cloudy.png'
-            alt="Cloudy">
-          <img
-            v-else
-            src='../../assets/little_cloudy.png' alt="Little cloudy">
-          <p>Clouds: {{ weatherInfo.clouds.all }} %</p>
+            :src='"../../assets/" + illustration + ".png"'
+            alt='sunny'>
+          <p><strong>{{ weatherInfo.weather[0].main }}</strong></p>
         </div>
       </div>
       <div class='block-wrapper'>
@@ -35,13 +27,25 @@
             <span>{{ temperature_key }}</span>
           </div>
         </div>
-        <div class='sun-clock'>
-          <p class='text-info'>
-            <icon name='sun-o'></icon>
-            Sunrise: {{ new Date(weatherInfo.sys.sunrise*1000).toString() | toTimeString }}
-            <br>
-            Sunset: {{ new Date(weatherInfo.sys.sunset*1000).toString() | toTimeString }}
-          </p>
+        <div class="inner-wrapper">
+          <div class='sun-clock'>
+            <p class='text-info'>
+              <icon name='sun-o'></icon>
+              Sunrise: {{ new Date(weatherInfo.sys.sunrise*1000).toString() | toTimeString }}
+              <br>
+              Sunset: {{ new Date(weatherInfo.sys.sunset*1000).toString() | toTimeString }}
+            </p>
+          </div>
+          <div class='clouds-wind'>
+            <p class='text-info'>
+              <icon name='cloud'></icon>
+              Clouds: {{ weatherInfo.clouds.all }} %
+            </p>
+            <p class='text-info'>
+              <icon name='mixcloud'></icon>
+              Wind: {{ weatherInfo.wind.speed }} m/sec
+            </p>
+          </div>
         </div>
       </div>
     </div>
@@ -87,7 +91,12 @@ export default {
       }
     },
     illustration: function () {
-      
+      let weatherID = +this.weatherInfo.weather[0].id
+      if ([200, 201, 202, 230, 231, 232].includes(weatherID)) {
+        return 'storm'
+      } else {
+        return 'sunny'
+      }
     }
   },
   filters: {
@@ -100,7 +109,7 @@ export default {
     temperature: function (value, type) {
       switch (type) {
         case 'c':
-          value = value * 0.0036
+          value = value - 273
           return value.toFixed()
         case 'f':
           value = 1.8 * (value - 273) + 32
