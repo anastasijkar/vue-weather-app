@@ -1,0 +1,22 @@
+body {
+  background-color: #e8f0f6;
+}
+
+#app {
+  font-family: 'Avenir', Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-align: center;
+  color: #132434;
+  margin-top: 60px;
+}
+
+a {
+  &:link, &:visited {
+    color: #2a0111;
+  }
+  &:active, &:hover {
+    color: #8b0333;
+    background-color: none;
+  }
+}
