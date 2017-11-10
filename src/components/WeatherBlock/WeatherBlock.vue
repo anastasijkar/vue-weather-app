@@ -94,9 +94,9 @@ export default {
       let weatherID = +this.weatherInfo.weather[0].id
       if ([200, 201, 202, 230, 231, 232].includes(weatherID)) {
         return 'storm'
-      } else {
-        return 'sunny'
-      }
+      } else if ([210, 211, 212, 221].includes(weatherID)) {
+        return 'lightning'
+      } else if ()
     }
   },
   filters: {
