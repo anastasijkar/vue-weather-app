@@ -1,82 +1,86 @@
-@import url('https://fonts.googleapis.com/css?family=Patrick+Hand');
-
-  .weather-block {
-    font-family: 'Patrick Hand', cursive;
-    display: inline-block;
-    width: 100%;
-    max-width: 280px;
-    margin: 15px;
-    padding: 15px;
-    border-radius: 15px;
-    border: 3px solid #fff;
-    box-shadow: 5px 5px 8px 0px rgba(0,0,0,.2);
-    background-color: #edf3f9;
-    color: #344879;
+.weather-block {
+  display: inline-block;
+  width: 100%;
+  max-width: 280px;
+  margin: 15px;
+  padding: 20px 15px;
+  border-radius: 15px;
+  border: 3px solid #fff;
+  box-shadow: 5px 5px 8px 0px rgba(0,0,0,.2);
+  background-color: #edf3f9;
+  color: #344879;
+  @media all and (min-width: 520px) {
+    max-width: 450px;
+  }
+  .wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
     @media all and (min-width: 520px) {
-      max-width: 450px;
+      flex-direction: row;
     }
-    .wrapper {
+    .block-wrapper {
       display: flex;
       flex-direction: column;
-      justify-content: space-around;
-      @media all and (min-width: 520px) {
-        flex-direction: row;
-      }
-      .block-wrapper {
+      justify-content: flex-start;
+      &.illustration {
         display: flex;
         flex-direction: column;
-        justify-content: flex-start;
-        & > * {
-          margin: 5px;
+        justify-content: space-around;
+        align-items: stretch;
+      }
+      & > * {
+        margin: 5px;
+      }
+      h1 {
+        font-size: 1.5em;
+        margin: 5px 0 10px
+      }
+      .temperature {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: flex-start;
+        svg {
+          margin-left: -15px;
         }
-        h1 {
-          font-size: 1.5em;
+      }
+      .text-info {
+        margin: 0;
+        text-align: left;
+        margin-left: 15px;
+        svg {
+          position: absolute;
+          margin-top: 3px;
         }
-        .temperature {
-          display: flex;
+      }
+      .inner-wrapper {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        @media all and (min-width: 520px) {
           flex-direction: row;
-          justify-content: space-between;
-          align-items: flex-start;
-          svg {
-            margin-left: -15px;
-          }
         }
-        .text-info {
-          margin: 0;
-          text-align: left;
-          margin-left: 15px;
-          svg {
-            position: absolute;
-            margin-top: 3px;
-          }
+      }
+      .sun-clock, .clouds-wind {
+        margin-bottom: 10px;
+        @media all and (min-width: 520px) {
+          margin-bottom: 0;
         }
-        .inner-wrapper {
-          display: flex;
-          flex-direction: column;
-          justify-content: space-between;
-          @media all and (min-width: 520px) {
-            flex-direction: row;
-          }
+        svg {
+          margin-left: -20px;
         }
-        .sun-clock, .clouds-wind {
-          margin-bottom: 10px;
-          @media all and (min-width: 520px) {
-            margin-bottom: 0;
-          }
-          svg {
-            margin-left: -20px;
-          }
-        }
-        .options {
-          padding: 1px 6px;
-          background-color: #87a3ce;
-          color: #fff;
-          border-radius: 5px;
-          box-shadow: 1px 1px 0px 0px rgba(0,0,0,.6);
-          cursor: pointer;
-          transition: transform .6s ease;
-          width: 22px;
-        }
+      }
+      .options {
+        padding: 1px 6px;
+        background-color: #87a3ce;
+        color: #fff;
+        border-radius: 5px;
+        box-shadow: 1px 1px 0px 0px rgba(0,0,0,.6);
+        cursor: pointer;
+        transition: transform .6s ease;
+        width: 22px;
       }
     }
   }
+}

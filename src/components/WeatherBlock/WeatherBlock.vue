@@ -1,10 +1,10 @@
 <template>
   <div class='weather-block'>
     <div class='wrapper' v-if='weatherInfo'>
-      <div class='block-wrapper'>
-        <p>
+      <div class='block-wrapper illustration'>
+        <!--<p>
           Today is {{ new Date(weatherInfo.dt *1000).toString() | toDateString }}
-        </p>
+        </p>-->
         <div>
           <img
             :src='"../../assets/" + illustration + ".png"'
@@ -13,7 +13,7 @@
         </div>
       </div>
       <div class='block-wrapper'>
-        <h1>Weather forecast for: Kharkiv</h1>
+        <h1>Weather forecast for: {{ location }}</h1>
         <div class='temperature'>
           <p class='text-info'>
             <icon name='thermometer-half'></icon>
@@ -49,6 +49,11 @@
         </div>
       </div>
     </div>
+    <div v-else-if='error'>
+      <img src='../../assets/error.png' alt="error">
+      <h1>{{ error.message }}</h1>
+      <p>Sorry, something went wrong here...</p>
+    </div>
     <div v-else>
       <img src='../../assets/loader.svg' alt="loading...">
     </div>
@@ -63,17 +68,21 @@ import Icon from 'vue-awesome/components/Icon'
 export default {
   name: 'weather-block',
   beforeMount: function () {
-    HTTP.get('weather?q=Kharkiv,ua&appid=89bf64420a722fa6304a5390561d28e9')
+    HTTP.get('weather?q=' + this.location + '&appid=89bf64420a722fa6304a5390561d28e9')
     .then(response => {
+      this.error = null
       this.weatherInfo = response.data
     })
     .catch(e => {
-      this.weatherInfo = e
+      this.error = e
+      this.weatherInfo = null
     })
   },
+  props: ['location'],
   data: function () {
     return {
-      weatherInfo: '',
+      error: null,
+      weatherInfo: null,
       today: Date.now(),
       temperature_filter: 'c',
       TEMP_TYPES: ['c', 'f', 'k']
@@ -96,7 +105,28 @@ export default {
         return 'storm'
       } else if ([210, 211, 212, 221].includes(weatherID)) {
         return 'lightning'
-      } else if ()
+      } else if (weatherID.toString()[0] === '3' ||
+                 weatherID.toString()[0] === '5' ||
+                 weatherID === 906) {
+        return 'rain'
+      } else if (weatherID.toString()[0] === '6') {
+        return 'snowy'
+      } else if (weatherID.toString()[0] === '7' &&
+                 weatherID !== 781) {
+        return 'fog'
+      } else if ([803, 804].includes(weatherID)) {
+        return 'cloudy'
+      } else if (weatherID === 802) {
+        return 'partly_cloudy'
+      } else if (weatherID === 801) {
+        return 'little_cloudy'
+      } else if (weatherID === 800) {
+        return 'sunny'
+      } else if ([781, 900, 901, 902, 905, 960, 961, 962].includes(weatherID)) {
+        return 'tornado'
+      } else {
+        return 'default'
+      }
     }
   },
   filters: {

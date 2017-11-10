@@ -1,9 +1,12 @@
 <template>
   <div id="app">
-  <weather-block></weather-block>
-  <!--<router-link v-bind:to="'/'">Home</router-link>
-  <router-link v-bind:to="'/about'">About</router-link>
-  <router-view></router-view>-->
+    <div>
+      <input type="text" placeholder="City name">
+    </div>
+    <weather-block location='Kharkiv,ua'></weather-block>
+    <!--<router-link v-bind:to="'/'">Home</router-link>
+    <router-link v-bind:to="'/about'">About</router-link>
+    <router-view></router-view>-->
   </div>
 </template>
 
