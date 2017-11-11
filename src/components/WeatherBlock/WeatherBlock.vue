@@ -164,7 +164,6 @@ export default {
   },
   watch: {
     location: function (val) {
-      console.log(val)
       this.getWeather()
     }
   },
