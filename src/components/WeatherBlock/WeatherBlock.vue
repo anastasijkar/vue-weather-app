@@ -13,7 +13,10 @@
         </div>
       </div>
       <div class='block-wrapper weather'>
-        <h1>Weather in {{ weatherInfo.name }}</h1>
+        <h1>
+          Weather in {{ weatherInfo.name }}
+          <span v-if="weatherInfo.sys.country">, {{ weatherInfo.sys.country }}</span>
+        </h1>
         <div class='temperature'>
           <p class='text-info'>
             <icon name='thermometer-half'></icon>
@@ -61,7 +64,7 @@
 </template>
 
 <script>
-import { HTTP } from '../http-common'
+import { weatherAPI } from '../http-common'
 import 'vue-awesome/icons'
 import Icon from 'vue-awesome/components/Icon'
 
@@ -151,7 +154,7 @@ export default {
       }
     },
     getWeather: function () {
-      HTTP.get('weather?q=' + this.location + '&appid=89bf64420a722fa6304a5390561d28e9')
+      weatherAPI.get('weather?q=' + this.location + '&appid=89bf64420a722fa6304a5390561d28e9')
       .then(response => {
         this.error = null
         this.weatherInfo = response.data
