@@ -12,8 +12,8 @@
           <p><strong>{{ weatherInfo.weather[0].main }}</strong></p>
         </div>
       </div>
-      <div class='block-wrapper'>
-        <h1>Weather forecast for: {{ weatherInfo.name }}</h1>
+      <div class='block-wrapper weather'>
+        <h1>Weather in {{ weatherInfo.name }}</h1>
         <div class='temperature'>
           <p class='text-info'>
             <icon name='thermometer-half'></icon>

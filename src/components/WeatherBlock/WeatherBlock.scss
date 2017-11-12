@@ -29,6 +29,11 @@
         justify-content: space-around;
         align-items: stretch;
       }
+      &.weather {
+        @media all and (min-width: 520px) {
+          width: 55%;
+        }
+      }
       & > * {
         margin: 5px;
       }
