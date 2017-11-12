@@ -12,8 +12,8 @@
           <p><strong>{{ weatherInfo.weather[0].main }}</strong></p>
         </div>
       </div>
-      <div class='block-wrapper'>
-        <h1>Weather forecast for: {{ location }}</h1>
+      <div class='block-wrapper weather'>
+        <h1>Weather in {{ weatherInfo.name }}</h1>
         <div class='temperature'>
           <p class='text-info'>
             <icon name='thermometer-half'></icon>
@@ -67,16 +67,8 @@ import Icon from 'vue-awesome/components/Icon'
 
 export default {
   name: 'weather-block',
-  beforeMount: function () {
-    HTTP.get('weather?q=' + this.location + '&appid=89bf64420a722fa6304a5390561d28e9')
-    .then(response => {
-      this.error = null
-      this.weatherInfo = response.data
-    })
-    .catch(e => {
-      this.error = e
-      this.weatherInfo = null
-    })
+  mounted: function () {
+    this.getWeather()
   },
   props: ['location'],
   data: function () {
@@ -157,6 +149,22 @@ export default {
       } else {
         this.temperature_filter = this.TEMP_TYPES[0]
       }
+    },
+    getWeather: function () {
+      HTTP.get('weather?q=' + this.location + '&appid=89bf64420a722fa6304a5390561d28e9')
+      .then(response => {
+        this.error = null
+        this.weatherInfo = response.data
+      })
+      .catch(e => {
+        this.error = e
+        this.weatherInfo = null
+      })
+    }
+  },
+  watch: {
+    location: function (val) {
+      this.getWeather()
     }
   },
   components: {

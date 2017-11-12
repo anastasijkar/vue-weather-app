@@ -1,11 +1,11 @@
 <template>
   <div id="app">
     <div>
-      <input type="text" placeholder="City name">
+      <input type="text" placeholder="City name" v-model="location">
     </div>
-    <weather-block location='Kharkiv,ua'></weather-block>
+    <weather-block :location='location'></weather-block>
     <!--<router-link v-bind:to="'/'">Home</router-link>
-    <router-link v-bind:to="'/about'">About</router-link>
+    <router-link v-bind:to="'/about'">Abotu</router-link>
     <router-view></router-view>-->
   </div>
 </template>
@@ -15,6 +15,11 @@ import weatherBlock from './components/WeatherBlock/WeatherBlock'
 
 export default {
   name: 'app',
+  data: function () {
+    return {
+      location: ''
+    }
+  },
   components: {
     weatherBlock
   }
