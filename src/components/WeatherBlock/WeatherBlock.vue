@@ -1,5 +1,8 @@
 <template>
   <div class='weather-block'>
+    <span class='close' v-if='removable' v-on:click='destroyWidget()'>
+      <icon name='times'></icon>
+    </span>
     <div class='wrapper' v-if='weatherInfo'>
       <div class='block-wrapper illustration'>
         <!--<p>
@@ -15,7 +18,7 @@
       <div class='block-wrapper weather'>
         <h1>
           Weather in {{ weatherInfo.name }}
-          <span v-if="weatherInfo.sys.country">, {{ weatherInfo.sys.country }}</span>
+          <span v-if='weatherInfo.sys.country'>, {{ weatherInfo.sys.country }}</span>
         </h1>
         <div class='temperature'>
           <p class='text-info'>
@@ -30,7 +33,7 @@
             <span>{{ temperature_key }}</span>
           </div>
         </div>
-        <div class="inner-wrapper">
+        <div class='inner-wrapper'>
           <div class='sun-clock'>
             <p class='text-info'>
               <icon name='sun-o'></icon>
@@ -53,12 +56,12 @@
       </div>
     </div>
     <div v-else-if='error'>
-      <img src='../../assets/error.png' alt="error">
+      <img src='../../assets/error.png' alt='Error.'>
       <h1>{{ error.message }}</h1>
       <p>Sorry, something went wrong here...</p>
     </div>
     <div v-else>
-      <img src='../../assets/loader.svg' alt="loading...">
+      <img src='../../assets/loader.svg' alt='Loading...'>
     </div>
   </div>
 </template>
@@ -73,7 +76,7 @@ export default {
   mounted: function () {
     this.getWeather()
   },
-  props: ['location'],
+  props: ['location', 'removable'],
   data: function () {
     return {
       error: null,
@@ -156,6 +159,7 @@ export default {
     getWeather: function () {
       weatherAPI.get('weather?q=' + this.location + '&appid=89bf64420a722fa6304a5390561d28e9')
       .then(response => {
+        console.log(response)
         this.error = null
         this.weatherInfo = response.data
       })
@@ -163,6 +167,9 @@ export default {
         this.error = e
         this.weatherInfo = null
       })
+    },
+    destroyWidget: function () {
+      this.$emit('destroyWidget')
     }
   },
   watch: {
