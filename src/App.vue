@@ -2,14 +2,14 @@
   <div id='app'>
     <div>
       <input type='text' placeholder='City or country name' v-model='currentLocation' @keyup.enter='addLocation()'>
-      <button @click='addLocation()'>Add</button>
+      <button @click='addLocation()' :disabled='addingDisabled || !currentLocation'>Add</button>
     </div>
-    <weather-block v-if='currentLocation' :location='currentLocation' :removable='false'></weather-block>
+    <weather-block v-if='currentLocation' :location='currentLocation' :removable='false' v-on:success='switchAdding(false)' v-on:error='switchAdding(true)'></weather-block>
     <div class='location-empty' v-else>
       <span>Type something to see the widget...</span>
     </div>
     <hr>
-    <weather-block v-for='(loc, index) in locations' :key='index' :location='loc' :removable='true' v-on:destroyWidget='deleteLocation(index)'></weather-block>
+    <weather-block v-for='(loc, index) in locations' :key='index' :location='loc' :removable='true' v-on:success='switchAdding(false)' v-on:error='switchAdding(true)' v-on:destroyWidget='deleteLocation(index)'></weather-block>
     <!--<router-link v-bind:to="'/'">Home</router-link>
     <router-link v-bind:to="'/about'">Abotu</router-link>
     <router-view></router-view>-->
@@ -27,7 +27,8 @@ export default {
   data: function () {
     return {
       currentLocation: '',
-      locations: ['Kharkiv']
+      locations: ['Kharkiv'],
+      addingDisabled: false
     }
   },
   methods: {
@@ -54,6 +55,9 @@ export default {
     deleteLocation: function (index) {
       this.locations.splice(index, 1)
       this.saveLocations()
+    },
+    switchAdding: function (val) {
+      this.addingDisabled = val
     }
   },
   components: {

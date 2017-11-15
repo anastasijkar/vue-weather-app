@@ -81,7 +81,6 @@ export default {
     return {
       error: null,
       weatherInfo: null,
-      today: Date.now(),
       temperature_filter: 'c',
       TEMP_TYPES: ['c', 'f', 'k']
     }
@@ -161,10 +160,12 @@ export default {
       .then(response => {
         console.log(response)
         this.error = null
+        this.$emit('success')
         this.weatherInfo = response.data
       })
       .catch(e => {
         this.error = e
+        this.$emit('error')
         this.weatherInfo = null
       })
     },
