@@ -1,6 +1,7 @@
 <template>
   <div id='app'>
     <div>
+      <geo-map></geo-map>
       <input type='text' placeholder='City or country name' v-model='currentLocation' @keyup.enter='addLocation()'>
       <button @click='addLocation()' :disabled='addingDisabled || !currentLocation'>Add</button>
     </div>
@@ -18,6 +19,7 @@
 
 <script>
 import weatherBlock from './components/WeatherBlock/WeatherBlock'
+import geoMap from './components/GeoMap/GeoMap'
 
 export default {
   name: 'app',
@@ -61,7 +63,8 @@ export default {
     }
   },
   components: {
-    weatherBlock
+    weatherBlock,
+    geoMap
   }
 }
 </script>

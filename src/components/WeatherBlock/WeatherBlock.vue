@@ -5,9 +5,6 @@
     </span>
     <div class='wrapper' v-if='weatherInfo'>
       <div class='block-wrapper illustration'>
-        <!--<p>
-          Today is {{ new Date(weatherInfo.dt *1000).toString() | toDateString }}
-        </p>-->
         <div>
           <img
             :src='"../../assets/" + illustration + ".png"'
